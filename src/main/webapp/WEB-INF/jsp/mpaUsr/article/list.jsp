@@ -16,7 +16,7 @@
 
 			<nav class="search-bar">
 				<div class="sample ten">
-					<input value="${param.searchKeyword}" name="searchKeyword"
+					<input value="${param.searchKeyword}" class="searh-input" name="searchKeyword"
 						type="text" placeholder="검색어를 입력해주세요." maxlength="10">
 					<button type="submit" class="search-btn">
 						<i class="fa fa-search"></i>
