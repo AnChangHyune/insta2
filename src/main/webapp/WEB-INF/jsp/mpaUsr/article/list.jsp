@@ -116,7 +116,7 @@
 		value="${uriBase}&searchKeyword=${param.searchKeyword}" />
 
 	<c:set var="aClassStr"
-		value="px-2 inline-block border border-gray-200 rounded text-lg hover:bg-gray-200" />
+		value="px-2 inline-block border border-gray-200 rounded text-lg hover:bg-gray-200 mb-10" />
 
 	<c:if test="${startPage > 1}">
 		<a class="${aClassStr}" href="${uriBase}&page=1">◀◀</a>
@@ -134,6 +134,11 @@
 		<a class="${aClassStr}" href="${uriBase}&page=${totalPage}">▶▶</a>
 	</c:if>
 </div>
+<div style="width: 100%; height: 20px;"></div>
+<div class="card-buttm">
+	<a href="javascript:history.back();" class="cursor-pointer"> 
+		<i class="fas fa-chevron-left"></i>
+		<i class="fas fa-chevron-right"></i>
+	</a>
 </div>
-
 <%@ include file="../common/foot.jspf"%>

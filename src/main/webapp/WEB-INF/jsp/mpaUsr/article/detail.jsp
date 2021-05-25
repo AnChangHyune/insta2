@@ -283,5 +283,11 @@
 		</div>
 	</div>
 </div>
+<div class="card-buttm">
+	<a href="javascript:history.back();" class="cursor-pointer"> 
+		<i class="fas fa-chevron-left"></i>
+		<i class="fas fa-chevron-right"></i>
+	</a>
+</div>
 
 <%@ include file="../common/foot.jspf"%>
