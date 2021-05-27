@@ -747,12 +747,15 @@ button.search-btn, button.btn-reset {
   .logo2 {
 	  display: none;
 	}
+  .section-0{
+  	font-size: 10px;
+  }
   .search-btn{
   	display: none;
   }
   .sample {
 	  position: relative;
-	  right:43%;
+	  right:55%;
 	}
   .article-list{
 		width: 350px;
@@ -785,17 +788,20 @@ button.search-btn, button.btn-reset {
 }
 @media (max-width: 768px) {
 	.article-list{
-		width: 600px;
+		width: 300px;
 		margin: 0 auto;
 	}
 	.sample {
 	  position: relative;
-	  width: 44.9%;
+	  width: 30%;
 	}
+	.search-btn{
+  	  display: none;
+  	}
 }
 @media (max-width: 1024px) {
 	.sample {
-	  width: 45.5%;
+	  width: 34%;
 	}
 	.article-list{
 		width: 800px;
