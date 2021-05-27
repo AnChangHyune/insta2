@@ -678,7 +678,7 @@ button.search-btn, button.btn-reset {
   height: 50px;
   margin: 0 8%;
   position: relative;
-  width: 18.2%;
+  width: 23%;
 }
 .sample.ten input {
   border-radius: 15px;
@@ -722,7 +722,7 @@ button.search-btn, button.btn-reset {
 }
 
 .article-list{
-	width: 1500px;
+	width: 1200px;
 	margin: 0 auto;
 }
 .card-buttm i{
@@ -743,24 +743,16 @@ button.search-btn, button.btn-reset {
 	  justify-content: space-between;
 	  align-items: center;
 }
-@media (max-width: 768px) {
-	.article-list{
-		width: 600px;
-		margin: 0 auto;
-	}
-	.sample {
-	  position: relative;
-	  width: 44.9%;
-	}
-}
-@media (max-width: 375px) {
+@media (max-width: 640px) {
   .logo2 {
 	  display: none;
 	}
+  .search-btn{
+  	display: none;
+  }
   .sample {
 	  position: relative;
-	  right:36%;
-	  width: 55.3%;
+	  right:43%;
 	}
   .article-list{
 		width: 350px;
@@ -789,6 +781,25 @@ button.search-btn, button.btn-reset {
 	}
 	.card-buttm div{
 		display: inline-block;
+	}
+}
+@media (max-width: 768px) {
+	.article-list{
+		width: 600px;
+		margin: 0 auto;
+	}
+	.sample {
+	  position: relative;
+	  width: 44.9%;
+	}
+}
+@media (max-width: 1024px) {
+	.sample {
+	  width: 45.5%;
+	}
+	.article-list{
+		width: 800px;
+		margin: 0 auto;
 	}
 }
 
