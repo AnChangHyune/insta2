@@ -8,17 +8,9 @@
 <div class="section section-article-detail">
 	<div class="container mx-auto">
 		<div class="card bordered shadow-lg item-bt-1-not-last-child">
-			<div class="card-title">
-				<a href="list?boardId=${board.id}" class="cursor-pointer"> <i
-					class="fas fa-chevron-left"></i>
-				</a> <span>게시물 상세페이지</span>
-			</div>
 			<div>
-
-				<div class="px-4 py-8">
-
-					<div
-						style="width: 100%; height: 100%; display: flex; align-items: center;">
+				<div class="px-4">
+					<div style="width: 100%; height: 100%; display: flex; align-items: center;">
 						<div style="width: 40px; height: 40px;">
 							<a href="detail?id=${article.id}"> <img class="w-10 h-10 object-cover rounded-full" onerror="${article.writerProfileFallbackImgOnErrorHtmlAttr}" src="${article.writerProfileImgUri}" alt="">
 							</a>

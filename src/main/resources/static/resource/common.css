@@ -371,7 +371,7 @@ body {
 }
 @media (max-width: 375px) {
   .fullscroll-container .section-0 {
-	  height: 400px;
+	  height: 200px;
 	}
   .section-0 p {
 	  font-size: 2em;
@@ -497,11 +497,7 @@ body {
                 }
 
 
-@media screen and (min-width: 360px) and (max-width:768px){
-	.regDate-list{
-		display: none;
-	}
-}                
+           
 
 .ico {
 	display:inline-block;
@@ -749,6 +745,7 @@ button.search-btn, button.btn-reset {
 	}
   .section-0{
   	font-size: 10px;
+  	height: 200px;
   }
   .search-btn{
   	display: none;
@@ -785,6 +782,45 @@ button.search-btn, button.btn-reset {
 	.card-buttm div{
 		display: inline-block;
 	}
+	.icon-button{
+		background-color: white;
+		border-radius: 2rem;
+		cursor: pointer;
+		display: inline-block;
+		font-size: 1rem;
+		height: 2rem;
+		line-height: 2rem;
+		margin: 0 5px;
+		position: relative;
+		text-align: center;
+		width: 2rem;
+	}
+	.icon-button i {
+		background: none;
+		color: white;
+		height: 2rem;
+		left: 0;
+		line-height: 2rem;
+		position: absolute;
+		top: 0;
+		-webkit-transition: all 0.3s;
+		   -moz-transition: all 0.3s;
+		     -o-transition: all 0.3s;
+		        transition: all 0.3s;
+		width: 2rem;
+		z-index: 10;
+	}
+	.newArticle{
+		display: block;
+		margin: 0 auto;
+		width: 90%;
+	}
+	.newArticle div{
+		width: 100%;
+	}
+	.newArticle-list{
+		width: 100%;
+	}
 }
 @media (max-width: 768px) {
 	.article-list{
@@ -808,4 +844,3 @@ button.search-btn, button.btn-reset {
 		margin: 0 auto;
 	}
 }
-
