@@ -7,7 +7,7 @@
 
 <div class="section section-article-detail">
 	<div class="container mx-auto">
-		<div class="card bordered shadow-lg item-bt-1-not-last-child">
+		<div>
 			<div>
 				<div class="px-4">
 					<div style="width: 100%; height: 100%; display: flex; align-items: center;">

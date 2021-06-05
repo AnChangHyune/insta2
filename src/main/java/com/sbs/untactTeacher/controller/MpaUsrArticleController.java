@@ -1,9 +1,11 @@
 package com.sbs.untactTeacher.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +17,7 @@ import org.springframework.web.multipart.MultipartRequest;
 
 import com.sbs.untactTeacher.dto.Article;
 import com.sbs.untactTeacher.dto.Board;
+import com.sbs.untactTeacher.dto.GenFile;
 import com.sbs.untactTeacher.dto.Reply;
 import com.sbs.untactTeacher.dto.ResultData;
 import com.sbs.untactTeacher.dto.Rq;
@@ -34,7 +37,7 @@ public class MpaUsrArticleController {
 
 	@Autowired
 	private GenFileService genFileService;
-	
+	// 게시물 상세보기
 	@RequestMapping("/mpaUsr/article/detail")
 	public String showDetail(HttpServletRequest req, int id, String body) {
 		Article article = articleService.getForPrintArticleById(id);
@@ -52,7 +55,7 @@ public class MpaUsrArticleController {
 
 		return "mpaUsr/article/detail";
 	}
-
+	// JSP연결 게시물 작성 페이지로 이동
 	@RequestMapping("/mpaUsr/article/write")
 	public String showWrite(HttpServletRequest req, @RequestParam(defaultValue = "1") int boardId) {
 		Board board = articleService.getBoardById(boardId);
@@ -65,7 +68,7 @@ public class MpaUsrArticleController {
 
 		return "mpaUsr/article/write";
 	}
-
+	// 게시물 작성
 	@RequestMapping("/mpaUsr/article/doWrite")
 	public String doWrite(HttpServletRequest req, int boardId, String title, String body,MultipartRequest multipartRequest) {
 
@@ -103,49 +106,88 @@ public class MpaUsrArticleController {
 
 		return Util.msgAndReplace(req, WriteRd.getMsg(), replaceUri);
 	}
+	// JSP 연결 게시물 수정 페이지로 이동
+	@RequestMapping("/mpaUsr/article/modify")
+	public String showModify(Integer id, HttpServletRequest req) {
+		if (id == null) {
+			return Util.msgAndBack(req, "id를 입력해주세요.");
+		}
 
+		Article article = articleService.getForPrintArticleById(id);
+
+		List<GenFile> files = genFileService.getGenFiles("article", article.getId(), "common", "attachment");
+
+		Map<String, GenFile> filesMap = new HashMap<>();
+
+		for (GenFile file : files) {
+			filesMap.put(file.getFileNo() + "", file);
+		}
+
+		article.getExtraNotNull().put("file__common__attachment", filesMap);
+		
+		req.setAttribute("article", article);
+
+		return "mpaUsr/article/modify";
+	}
+	// 게시물 수정
 	@RequestMapping("/mpaUsr/article/doModify")
-	@ResponseBody
-	public ResultData doModify(Integer id, String title, String body) {
-
+	public String doModify(Integer id, String title, String body, HttpServletRequest req) {
+		
 		if (Util.isEmpty(id)) {
-			return new ResultData("F-1", "번호를 입력해주세요.");
+			return Util.msgAndBack(req, "번호를 입력해주세요.");
 		}
 
 		if (Util.isEmpty(title)) {
-			return new ResultData("F-2", "제목을 입력해주세요.");
+			return Util.msgAndBack(req, "제목을 입력해주세요.");
 		}
 
 		if (Util.isEmpty(body)) {
-			return new ResultData("F-3", "내용을 입력해주세요.");
+			return Util.msgAndBack(req, "내용을 입력해주세요.");
 		}
 
 		Article article = articleService.getArticleById(id);
 
 		if (article == null) {
-			return new ResultData("F-4", "존재하지 않는 게시물 번호입니다.");
+			return Util.msgAndBack(req, "존재하지 않는 게시물 번호입니다.");
 		}
+		
+		ResultData modifyRs = articleService.modifyArticle(id, title, body);
+		
+		if(modifyRs.isFail()) {
+			return Util.msgAndBack(req, modifyRs.getMsg());
+		}
+		
+		String redirectUri = "../article/detail?id=" + modifyRs.getBody().get("id");
+		
 
-		return articleService.modifyArticle(id, title, body);
+		return Util.msgAndReplace(req, modifyRs.getMsg(), redirectUri);
 	}
 
-	@RequestMapping("/mpaUsr/article/doDelete")
-	public String doDelete(HttpServletRequest req, Integer id) {
-		if (Util.isEmpty(id)) {
-			return Util.msgAndBack(req, "id를 입력해주세요.");
-		}
+    @RequestMapping("/mpaUsr/article/doDelete")
+    public String doDelete(HttpServletRequest req, int id, String redirectUri) {
+    	Article article = articleService.getArticleById(id);
 
-		ResultData rd = articleService.deleteArticleById(id);
+        if ( article == null ) {
+            return Util.msgAndBack(req, "존재하지 않는 댓글입니다.");
+        }
 
-		if (rd.isFail()) {
-			return Util.msgAndBack(req, rd.getMsg());
-		}
+        Rq rq = (Rq)req.getAttribute("rq");
 
-		String redirectUri = "../article/list?boardId=" + rd.getBody().get("boardId");
+        if ( article.getMemberId() != rq.getLoginedMemberId() ) {
+            return Util.msgAndBack(req, "권한이 없습니다.");
+        }
 
-		return Util.msgAndReplace(req, rd.getMsg(), redirectUri);
-	}
+        ResultData deleteResultData = articleService.deleteArticleById(id);
+        
+        if(deleteResultData.isFail()) {
+        	return Util.msgAndBack(req, deleteResultData.getMsg());
+        }
+        
+        redirectUri = "../article/list?boardId="+deleteResultData.getBody().get("boardId");
 
+        return Util.msgAndReplace(req, deleteResultData.getMsg(), redirectUri);
+    }
+	// 게시물 리스트
 	@RequestMapping("/mpaUsr/article/list")
 	public String showList(HttpServletRequest req, @RequestParam(defaultValue = "1") int boardId,
 			String searchKeywordType, String searchKeyword, @RequestParam(defaultValue = "1") int page) {

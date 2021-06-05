@@ -6,15 +6,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sbs.untactTeacher.dao.ArticleDao;
+import com.sbs.untactTeacher.dao.ReplyDao;
 import com.sbs.untactTeacher.dto.Article;
 import com.sbs.untactTeacher.dto.Board;
+import com.sbs.untactTeacher.dto.Reply;
 import com.sbs.untactTeacher.dto.ResultData;
 
 @Service
 public class ArticleService {
 	@Autowired
 	private ArticleDao articleDao;
-
+	
+	@Autowired
+	private ReplyDao replyDao;
+	// 게시물 수정
 	public ResultData modifyArticle(int id, String title, String body) {
 		Article article = getArticleById(id);
 
@@ -48,7 +53,7 @@ public class ArticleService {
 
 		return new ResultData("S-1", id + "번 게시물이 삭제되었습니다.", "id", id, "boardId", article.getBoardId());
 	}
-
+	// 게시물 작성
 	public ResultData writeArticle(int boardId, int memberId, String title, String body) {
 		
 		articleDao.writeArticle(boardId, memberId, title, body);
@@ -60,11 +65,11 @@ public class ArticleService {
 	public Article getArticleById(int id) {
 		return articleDao.getArticleById(id);
 	}
-
+	// 게시판 번호
 	public Board getBoardById(int id) {
 		return articleDao.getBoardById(id);
 	}
-
+	// 게시물 총 페이지(검색/페이지)
 	public int getArticlesTotalCount(int boardId, String searchKeywordTypeCode, String searchKeyword) {
 		if (searchKeyword != null && searchKeyword.length() == 0) {
 			searchKeyword = null;
@@ -72,7 +77,7 @@ public class ArticleService {
 
 		return articleDao.getArticlesTotalCount(boardId, searchKeywordTypeCode, searchKeyword);
 	}
-
+	// 게시물 리스트(검색/페이지)
 	public List<Article> getForPrintArticles(int boardId, String searchKeywordTypeCode, String searchKeyword,
 			int itemsCountInAPage, int page) {
 		if (searchKeyword != null && searchKeyword.length() == 0) {
@@ -84,10 +89,9 @@ public class ArticleService {
 
 		return articleDao.getForPrintArticles(boardId, searchKeywordTypeCode, searchKeyword, limitFrom, limitTake);
 	}
-
+	// 게시물 번호
 	public Article getForPrintArticleById(int id) {
 		return articleDao.getForPrintArticleById(id);
 	}
-
 
 }

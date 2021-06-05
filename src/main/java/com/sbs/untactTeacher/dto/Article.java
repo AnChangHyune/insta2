@@ -1,5 +1,6 @@
 package com.sbs.untactTeacher.dto;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import lombok.AllArgsConstructor;
@@ -37,6 +38,15 @@ public class Article {
     	
     	return bodyForPrint;
     }
+
+	public Map<String, Object> getExtraNotNull() {
+		if ( extra == null ) {
+			extra = new HashMap<String, Object>();
+		}
+		
+		return extra;
+	}
+	
     public String getWriterProfileImgUri() {
         return "/common/genFile/file/member/" + memberId + "/extra/profileImg/1";
     }

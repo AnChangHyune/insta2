@@ -61,7 +61,6 @@ public class MemberService {
     public Member getMemberByNameAndEmail(String name, String email) {
         return memberDao.getMemberByNameAndEmail(name, email);
     }
-
     public ResultData notifyTempLoginPwByEmail(Member actor) {
         String title = "[" + siteName + "] 임시 패스워드 발송";
         String tempPassword = Util.getTempPassword(6);
@@ -103,7 +102,7 @@ public class MemberService {
     		return new ResultData("S-1", "유효한 키 입니다.");
     	}
     	
-    	return new ResultData("F-1", "유효하지 않은 키 입니다.");
+    	return new ResultData("F-1", "비밀번호를 입력해주세요.");
     }
 
     public String genCheckPasswordAuthCode(int actorId) {

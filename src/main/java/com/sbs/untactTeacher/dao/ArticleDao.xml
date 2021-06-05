@@ -54,18 +54,19 @@
         LIMIT #{limitFrom}, #{limitTake};
     </select>
 
-    <select id="getBoardById" resultType="Board">
-        SELECT *
-        FROM board AS B
-        WHERE B.id = #{id}
-        AND B.delStatus = 0
-    </select>
 
     <select id="getArticleById" resultType="Article">
         SELECT *
         FROM article AS A
         WHERE A.id = #{id}
         AND A.delStatus = 0
+    </select>
+    
+    <select id="getBoardById" resultType="Board">
+        SELECT *
+        FROM board AS B
+        WHERE B.id = #{id}
+        AND B.delStatus = 0
     </select>
 
     <select id="getForPrintArticleById" resultType="Article">

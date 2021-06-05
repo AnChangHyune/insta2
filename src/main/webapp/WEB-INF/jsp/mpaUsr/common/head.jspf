@@ -28,6 +28,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Fascinate&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Righteous&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Bungee&family=Righteous&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Suez+One&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/resource/common.css" />
 <script src="/resource/common.js" defer></script>
 <title>INSTA</title>
@@ -41,7 +42,7 @@ const param = ${rq.paramJsonStr};
 			<div class="container mx-auto flex h-full">
 				<a href="/" class="px-3 flex items-center">
 					<span style="font-family: 'Fascinate', cursive; font-size: 30px; color: #fff;">
-						INSTA
+						INSTAR
 					</span>
 				</a>
 

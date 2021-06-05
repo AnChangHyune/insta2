@@ -46,7 +46,7 @@ public class MpaUsrMemberController {
 		
 		return new ResultData("S-1", "사용가능한 로그인 아이디 입니다.", "loginId",loginId);
 	}
-
+	// 회원정보 수정 페이지 이동
 	@RequestMapping("/mpaUsr/member/modify")
 	public String showModify(HttpServletRequest req, String checkPasswordAuthCode) {
 
@@ -60,7 +60,7 @@ public class MpaUsrMemberController {
 
 		return "mpaUsr/member/modify";
 	}
-
+	// 회원정보 수정
 	@RequestMapping("/mpaUsr/member/doModify")
 	public String doModify(HttpServletRequest req, String loginPw, String name, String nickname, String cellphoneNo,
 			String email, String checkPasswordAuthCode, MultipartRequest multipartRequest) {
@@ -120,12 +120,12 @@ public class MpaUsrMemberController {
 
 		return Util.msgAndReplace(req, "", redirectUri);
 	}
-
+	// 비밀번호 찾기 페이지로 이동
 	@RequestMapping("/mpaUsr/member/findLoginPw")
 	public String showFindLoginPw(HttpServletRequest req) {
 		return "/mpaUsr/member/findLoginPw";
 	}
-
+	// 비밀번호 첮기
 	@RequestMapping("/mpaUsr/member/doFindLoginPw")
 	public String doFindLogindPw(HttpServletRequest req, String loginId, String email, String name,
 			String redirectUri) {
@@ -152,26 +152,33 @@ public class MpaUsrMemberController {
 
 		return Util.msgAndReplace(req, notifyTempLoginPwByEmailRs.getMsg(), redirectUri);
 	}
-
+	//아이디 찾기 페이지로 이동
 	@RequestMapping("/mpaUsr/member/findLoginId")
-	public String showFindLogindId(HttpServletRequest req) {
-		return "/mpaUsr/member/findLoginId";
-	}
+    public String showFindLoginId(HttpServletRequest req) {
+        return "mpaUsr/member/findLoginId";
+    }
+	// 아이디 찾기
+    @RequestMapping("/mpaUsr/member/doFindLoginId")
+    public String doFindLoginId(HttpServletRequest req, String name, String email, String redirectUri) {
+        if (Util.isEmpty(redirectUri)) {
+            redirectUri = "/";
+        }
 
-	@RequestMapping("/mpaUsr/member/doFindLoginId")
-	public String doFindLogindId(HttpServletRequest req, String email, String name, String redirectUri) {
-		if (Util.isEmpty(redirectUri)) {
-			redirectUri = "/";
-		}
+        Member member = memberService.getMemberByNameAndEmail(name, email);
 
-		Member member = memberService.getMemberByNameAndEmail(email, name);
-
-		if (member == null) {
+        if (member == null) {
+            return Util.msgAndBack(req, "일치하는 회원이 존재하지 않습니다.");
+        }
+        if (member.getName().equals(name) == false) {
 			return Util.msgAndBack(req, "일치하는 회원이 존재하지 않습니다.");
 		}
 
-		return Util.msgAndBack(req, String.format("회원님의 아이디는 `%s` 입니다.", member.getLoginId()));
-	}
+		if (member.getEmail().equals(email) == false) {
+			return Util.msgAndBack(req, "일치하는 회원이 존재하지 않습니다.");
+		}
+
+        return Util.msgAndBack(req, String.format("회원님의 아이디는 `%s` 입니다.", member.getLoginId()));
+    }
 
 	@RequestMapping("/mpaUsr/member/login")
 	public String showLogin(HttpServletRequest req) {
@@ -224,36 +231,35 @@ public class MpaUsrMemberController {
 
 		return Util.msgAndReplace(req, msg, redirectUri);
 	}
-
+	
+	// 회원가입 페이지 이동
 	@RequestMapping("/mpaUsr/member/join")
 	public String showJoin(HttpServletRequest req) {
-
 		return "mpaUsr/member/join";
 	}
-
+	// 회원가입 처리
 	@RequestMapping("/mpaUsr/member/doJoin")
 	public String doJoin(HttpServletRequest req, String loginId, String loginPw, String name, String nickname,
 			String cellphoneNo, String email, MultipartRequest multipartRequest) {
+		// 아이디 중복 체크
 		Member oldMember = memberService.getMemberByLoginId(loginId);
 
 		if (oldMember != null) {
-			return Util.msgAndBack(req, loginId + "(은)는 이미 사용중인 로그인아이디 입니다.");
+			return Util.msgAndBack(req, loginId + "(은)는 이미 사용중인 아이디 입니다.");
 		}
-		
+		// 회원가입 체크(이름,이메일)
 		oldMember = memberService.getMemberByNameAndEmail(name, email);
 
         if (oldMember != null) {
             return Util.msgAndBack(req, String.format("%s님은 이미 %s 메일주소로 %s 에 가입하셨습니다.", name, email, oldMember.getRegDate()));
         }
-
 		ResultData joinRd = memberService.join(loginId, loginPw, name, nickname, cellphoneNo, email);
-
+		
 		if (joinRd.isFail()) {
 			return Util.msgAndBack(req, joinRd.getMsg());
 		}
-
 		int newMemberId = (int) joinRd.getBody().get("id");
-
+		// 프로필 이미지 설정
 		Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
 
 		for (String fileInputName : fileMap.keySet()) {
@@ -263,7 +269,6 @@ public class MpaUsrMemberController {
 				genFileService.save(multipartFile, newMemberId);
 			}
 		}
-
 		Rq rq = (Rq) req.getAttribute("rq");
 
 		return Util.msgAndReplace(req, joinRd.getMsg(), rq.getLoginPageUri());

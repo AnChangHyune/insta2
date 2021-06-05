@@ -10,41 +10,41 @@
 <%@ include file="../common/head.jspf"%>
 <div id="fullscroll-0" class="fullscroll-container">
 	<section class="onepage section-0">
-		<p>Insta blog</p>
+		<p>Instar blog</p>
 	</section>	
 	<section class="onepage section-1">
 		<div class="newArticle">
-			<div class="newWrite">
-				<div class="mb-3 flex items-center">
-					<div>
-					 	<h1>최신글</h1>
-					</div>
-					<div>
-						<a href="/mpaUsr/article/list?boardId=1" style="float: right;"><i class="fas fa-plus"></i></a>
-					</div>
+		<div>
+			<div class="mb-3 flex items-center">
+				<div>
+				 	<h1>최신글</h1>
 				</div>
-				
-				<div class="newArticle-list">
-				<hr />
-					<c:forEach items="${articles}" var="article">
-						<div class="mt-8 mb-4" style="width: 100%;">
-								<span class="ico_outer"><i class="ico">NEW</i></span>
-								<a href="../article/detail?id=${article.id}" class="title-list">${article.title}</a>
-								<a href="../article/detail?id=${article.id}" class="regDate-list">${article.regDate}</a>
-						</div>
-							
-					</c:forEach>
+				<div>
+					<a href="/mpaUsr/article/list?boardId=1" style="float: right;"><i class="fas fa-plus"></i></a>
 				</div>
 			</div>
-			<div class="TopWrite">
+			
+			<div class="newArticle-list">
+			<hr />
+				<c:forEach items="${articles}" var="article">
+					<div class="mt-8 mb-4" style="width: 100%;">
+							<span class="ico_outer"><i class="ico">NEW</i></span>
+							<a href="../article/detail?id=${article.id}" class="title-list">${article.title}</a>
+							<a href="../article/detail?id=${article.id}" class="regDate-list">${article.regDate}</a>
+					</div>
+						
+				</c:forEach>
+			</div>
+		</div>
+			<div>
 				<div class="mb-3 flex items-center ">
-					<div class="mt-6">
-						<h1>인기글</h1>
-					</div>
-					<div>
-						<a href="/mpaUsr/article/list?boardId=1" style="float: right;"><i class="fas fa-plus"></i></a>
-					</div>
+				<div>
+					<h1>인기글</h1>
 				</div>
+				<div>
+					<a href="/mpaUsr/article/list?boardId=1" style="float: right;"><i class="fas fa-plus"></i></a>
+				</div>
+			</div>
 				<div class="newArticle-list">
 					<hr />
 					<c:forEach items="${articles}" var="article">
@@ -63,7 +63,7 @@
 	<section class="onepage section-3"></section>
 	<footer class="section-footer">
 		<div>
-			insta
+			instar
 		</div>
 		<div>
 			<a href="https://twitter.com/minimalmonkey" class="icon-button twitter"><i class="icon-twitter"></i><span></span></a>

@@ -80,6 +80,8 @@
 
 			return;
 		}
+		
+	
 
 		const maxSizeMb = 10;
 		const maxSize = maxSizeMb * 1024 * 1024;
@@ -109,6 +111,7 @@
 
 			return;
 		}
+		
 
 		form.loginPw.value = sha256(form.loginPwInput.value);
 		form.loginPwInput.value = '';
@@ -155,12 +158,7 @@
 <div class="section section-join">
 	<div class="container mx-auto">
 		<div class="card bordered shadow-lg item-bt-1-not-last-child">
-			<div class="card-title">
-				<a href="javascript:history.back();" class="cursor-pointer"> <i
-					class="fas fa-chevron-left"></i>
-				</a> <span>회원가입</span>
-
-			</div>
+			<div style="font-size: 50px; text-align: center; color: gray; letter-spacing: 10px; font-family: 'Caveat', cursive;">JOIN</div>
 			<div class="px-4 py-8">
 				<form action="doJoin" enctype="multipart/form-data"
 					class="grid form-type-1"
@@ -170,7 +168,7 @@
 
 					<div class="form-control">
 						<label class="label cursor-pointer"> 아이디 </label>
-						<input onkeyup="MemberJoin__checkLoginIdDup(this);" class="input input-bordered w-full" type="text" maxlength="30" name="loginId" placeholder="로그인아이디를 입력해주세요." />
+						<input onkeyup="MemberJoin__checkLoginIdDup(this);" class="input input-bordered w-full" type="text" maxlength="30" name="loginId" placeholder="아이디" />
 			            <div class="mt-2 text-red-500 login-id-input-error-msg"></div>
 			            <div class="mt-2 text-green-500 login-id-input-success-msg"></div> 
 						

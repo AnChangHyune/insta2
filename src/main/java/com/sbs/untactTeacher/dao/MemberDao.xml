@@ -50,7 +50,7 @@
         email = #{email}
     </insert>
 
-    <update id="modify">
+  <update id="modify">
         UPDATE `member`
         <set>
             updateDate = NOW(),

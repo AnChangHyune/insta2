@@ -371,7 +371,7 @@ body {
 }
 @media (max-width: 375px) {
   .fullscroll-container .section-0 {
-	  height: 200px;
+	  height: 300px;
 	}
   .section-0 p {
 	  font-size: 2em;
@@ -739,6 +739,18 @@ button.search-btn, button.btn-reset {
 	  justify-content: space-between;
 	  align-items: center;
 }
+.mypage-list{
+	position: relative;
+}
+.mypage-list ul{
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+}
+.mypage-list ul li {
+	margin: 3px 0px;
+}
+
 @media (max-width: 640px) {
   .logo2 {
 	  display: none;
@@ -750,13 +762,13 @@ button.search-btn, button.btn-reset {
   .search-btn{
   	display: none;
   }
+  .article-list{
+  		width:380px;
+		margin: 0 auto;
+	}
   .sample {
 	  position: relative;
 	  right:55%;
-	}
-  .article-list{
-		width: 350px;
-		margin: 0 auto;
 	}
   .card-buttm{
   	  position: fixed;
@@ -821,12 +833,14 @@ button.search-btn, button.btn-reset {
 	.newArticle-list{
 		width: 100%;
 	}
+	.login-btn div button span{
+		font-size: 10px;
+	}
+	.login-btn div a span{
+		font-size: 10px;
+	}
 }
 @media (max-width: 768px) {
-	.article-list{
-		width: 300px;
-		margin: 0 auto;
-	}
 	.sample {
 	  position: relative;
 	  width: 30%;
@@ -838,9 +852,5 @@ button.search-btn, button.btn-reset {
 @media (max-width: 1024px) {
 	.sample {
 	  width: 34%;
-	}
-	.article-list{
-		width: 800px;
-		margin: 0 auto;
 	}
 }

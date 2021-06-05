@@ -6,13 +6,12 @@
 <%@ include file="../common/head.jspf"%>
 
 
-
 <form action="" class="grid gap-2">
 	<input type="hidden" name="boardId" value="${board.id}" />
 	<header class="main_h">
 
 		<div class="row">
-			<a class="logo2" href="#">INSTA</a>
+			<a class="logo2" style="font-family: 'Fascinate', cursive; href="#">INSTAR</a>
 
 			<nav class="search-bar">
 				<div class="sample ten">
@@ -45,12 +44,13 @@
 </div>
 <div class="article-list">
 	<div class="item-bt-1-not-last-child">
+		<input type="hidden" name="redirectUri" value="${param.redirectUri}" />
 		<c:if test="${articles == null || articles.size() == 0}">
                         검색결과가 존재하지 않습니다.
                 </c:if>
 		<c:forEach items="${articles}" var="article">
 			<!-- 게시물 아이템, first -->
-			<div class="px-4 py-8">
+			<div class="px-4 py-8 ">
 				<div
 					style="width: 100%; height: 100%; display: flex; align-items: center;">
 					<div style="width: 50px; height: 50px;" class="mt-2">
@@ -81,7 +81,7 @@
 				</div>
 				<div class="line-clamp-3 mb-12">${article.body}</div>
 				<div class="plain-link-wrap gap-3 mt-4 mb-4">
-					<a href="detail?id=${board.id}" class="plain-link" title="자세히 보기">
+					<a href="detail?id=${article.id}" class="plain-link" title="자세히 보기">
 						<span><i class="fas fa-info"></i></span> <span>자세히 보기</span>
 					</a> <a href="detail?id=${article.id}" class="plain-link" title="댓글">
 						<span><i class="fas fa-comment-dots"></i></span> <span>댓글
@@ -92,14 +92,13 @@
 							test="${article.extra__writerName != rq.loginedMember.nickname}">
 						</c:when>
 						<c:otherwise>
-							<a href="#" class="plain-link"> <span><i
+							<a href="../article/modify?id=${article.id}" class="plain-link"> <span><i
 									class="fas fa-edit"></i></span> <span>수정</span>
 							</a>
-							<a onclick="if ( !confirm('삭제하시겠습니까?') ) return false;"
-								href="../article/doDelete?id=${board.id}" class="plain-link">
-								<span> <i class="fas fa-trash"></i> <span>삭제</span>
-							</span>
-							</a>
+							<a onclick="if ( confirm('정말 삭제하시겠습니까?') == false ) { return false; }" href="../article/doDelete?id=${article.id}" class="plain-link">
+                                    <span><i class="fas fa-trash"></i></span>
+                                    <span>삭제</span>
+                            </a>
 						</c:otherwise>
 					</c:choose>
 				</div>
