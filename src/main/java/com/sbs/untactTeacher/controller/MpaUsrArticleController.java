@@ -165,16 +165,10 @@ public class MpaUsrArticleController {
 
     @RequestMapping("/mpaUsr/article/doDelete")
     public String doDelete(HttpServletRequest req, int id, String redirectUri) {
-    	Article article = articleService.getArticleById(id);
+    	Board board = articleService.getBoardById(id);
 
-        if ( article == null ) {
-            return Util.msgAndBack(req, "존재하지 않는 댓글입니다.");
-        }
-
-        Rq rq = (Rq)req.getAttribute("rq");
-
-        if ( article.getMemberId() != rq.getLoginedMemberId() ) {
-            return Util.msgAndBack(req, "권한이 없습니다.");
+        if ( board == null ) {
+            return Util.msgAndBack(req, "존재하지 않는 게시물입니니다.");
         }
 
         ResultData deleteResultData = articleService.deleteArticleById(id);
